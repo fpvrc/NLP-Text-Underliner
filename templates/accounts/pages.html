@@ -1,0 +1,76 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            {% for listing in listings %}
+        <h1 class="h3 mb-0 text-gray-800">{{ listing.id }}</h1>
+        {% endfor %}
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    </div>
+
+    <!-- Content Row -->
+    {% for poto in photos %}
+        <h1 class="h3 mb-0 text-gray-800">{{ photo.title }}</h1>
+        {% endfor %}
+    <div class="container">
+        <form method="post" action="{% url 'accounts:clear_database' %}">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ request.path }}">
+          <button type="submit" class="btn btn-danger pull-right">
+            <span class="glyphicon glyphicon-trash"></span> Clear Database
+          </button>
+        </form>
+        <h1 class="page-header">
+          Photos
+       
+        </h1>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Examples</h3>
+              </div>
+              <div class="list-group">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="well text-muted text-center" style="padding-top: 4rem; padding-bottom: 4rem;">
+              <span class="glyphicon glyphicon-arrow-down" style="font-size: 4rem;"></span>
+              <h3>Drop Photos Here to Upload</h3>
+            </div>
+            {% for listing in listings %}
+            <input id="fileupload" type="file" name="file" multiple
+                   style="display: none;"
+                   data-url="{% url 'accounts:drag_and_drop_upload' listing.id %}"
+                   data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+                   {% endfor %}
+            <table id="gallery" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Photo</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for photo in photos %}
+                  <tr>
+                    <td><a href="{{ photo.file.url }}">{{ photo.file.name }}</a></td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+        </div>
+
+</div>
+<!-- /.container-fluid -->
+
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            {% for listing in listings %}
+        <h1 class="h3 mb-0 text-gray-800">{{ listing.title }}</h1>
+        {% endfor %}
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+        <!-- Earnings (Monthly) Card Example -->
+        <!--<div class="col-xl-3 col-md-6 mb-4">-->
+        <!--<div class="card border-left-primary shadow h-100 py-2">-->
+
+
+
+            {% if listing.photo_main.url != 'placeholder' %}
+            {% for listing in listing %}
+            <div class="column">
+            <div class="card shadow py-2">
+            <div class="reading-card-body">
+            <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+                <img class="card-img-top" src="{{ listing.photo_main.url }}" alt="">
+            </div>
+            <div class="col-auto">
+                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+
+
+
+        <!--</div>-->
+
+            <!--<div class="card shadow py-2">
+            <div class="reading-card-body">
+            <div class="row no-gutters align-items-center">
+            <div class="upload">
+                <h2>Upload Pages</h2>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+                <p><a href="{% url 'dashboard' %}">Return to home</a></p>
+            </div>
+            </div>
+            </div>
+            </div>-->
+
+                    <!--</div>-->
+            <!--<div class="column">
+            <div class="card shadow py-2">
+            <div class="reading-card-body">
+            <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+            <div class="upload">
+                <h2>Upload Pages</h2>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+            
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>-->
+
+            <div class="column">
+                    <div class="card shadow py-2">
+                    <div class="reading-card-body">
+                    <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                    <div class="upload">
+                       <h2>Add Photo</h2>
+                       <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary">Add</button>
+                      </form>
+                     <!-- <p><a href="{% url 'dashboard' %}">Return to home</a></p>-->
+                    
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+
+
+        </div>
+
+</div>
+<!-- /.container-fluid -->
+
+{% endblock %}

@@ -1,0 +1,81 @@
+
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Photos Library - Simple is Better Than Complex{% endblock %}</title>
+    <link href="{% static 'css_upload/bootstrap.min.css' %}" rel="stylesheet">
+    <style type="text/css">
+      .page-header {
+        margin-top: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      {% block content %}
+      <form method="post" action="{% url 'clear_database' %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.path }}">
+        <button type="submit" class="btn btn-danger pull-right">
+          <span class="glyphicon glyphicon-trash"></span> Clear Database
+        </button>
+      </form>
+      <h1 class="page-header">
+        Photos
+     
+      </h1>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Examples</h3>
+            </div>
+            <div class="list-group">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="well text-muted text-center" style="padding-top: 4rem; padding-bottom: 4rem;">
+            <span class="glyphicon glyphicon-arrow-down" style="font-size: 4rem;"></span>
+            <h3>Drop Photos Here to Upload</h3>
+          </div>
+        
+          <input id="fileupload" type="file" name="file" multiple
+                 style="display: none;"
+                 data-url="{% url 'drag_and_drop_upload' %}"
+                 data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+        
+          <table id="gallery" class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Photo</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for photo in photos %}
+                <tr>
+                  <td><a href="{{ photo.file.url }}">{{ photo.file.name }}</a></td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {% endblock %}
+    </div>
+    <script src="{% static 'js_upload/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'js_upload/bootstrap.min.js' %}"></script>
+    {# JQUERY FILE UPLOAD SCRIPTS #}
+  <script src="{% static 'js_upload/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
+  <script src="{% static 'js_upload/jquery-file-upload/jquery.iframe-transport.js' %}"></script>
+  <script src="{% static 'js_upload/jquery-file-upload/jquery.fileupload.js' %}"></script>
+
+  {# PHOTOS PAGE SCRIPTS #}
+  <script src="{% static 'js_upload/drag-and-drop-upload.js' %}"></script>
+  </body>
+</html>
+ 
