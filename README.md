@@ -56,7 +56,7 @@
 			ii. Click on security
 			iii. Add the guaratee as the postgres user and select 'ALL' for security
 
-	10) Pip install some shiz in the enviorment
+	10) Pip install in the enviorment
 		a.  pip install psycopg2-binary
 		b.  pip install pandas
 		c.  pip install google-cloud-vision
